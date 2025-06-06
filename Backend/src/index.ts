@@ -15,7 +15,7 @@ const mongoURI = process.env.MONGO_STRING as string;
 app.use(express.json()); 
 app.use('/api/v1/user',userRoute); 
 app.use('/api/v1/content',userMiddleware,contentRoute); 
-app.use('/api/v1/brain/share',userMiddleware,shareRoute); 
+app.use('/api/v1/brain/share',shareRoute); 
 
 if (!mongoURI) {
   throw new Error("MONGO_STRING is not defined in the .env file.");

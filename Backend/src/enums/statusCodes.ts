@@ -10,5 +10,5 @@ export enum StatusCode {
     NOT_FOUND = 404,
     CONFLICT = 409,
     INTERNAL_SERVER_ERROR = 500,
+    Content_Length_header_is_missing = 411
   }
-  

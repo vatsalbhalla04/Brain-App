@@ -45,6 +45,12 @@ const TagSchema = new Schema({
 
 const LinkSchema = new Schema({
     hash : String, 
+    userId: {
+        type: ObjectId,
+        ref : 'user', 
+        required: true,
+        unique: true
+    }
 }); 
 
 export const userModel = mongoose.model("user",UserSchema); 
