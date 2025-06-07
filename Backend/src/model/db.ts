@@ -24,6 +24,7 @@ const ContentSchema = new Schema({
         type : String, 
         required : true, 
     },
+    type: String,
     link:{
         type : String, 
         required : true, 

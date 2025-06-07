@@ -1,5 +1,5 @@
 import {Request,Response,NextFunction} from 'express'; 
-import jwt from "jsonwebtoken"; 
+import jwt, { JwtPayload } from "jsonwebtoken"; 
 import { user_jwt } from '../config';
 import { StatusCode } from '../enums/statusCodes';
 
@@ -10,18 +10,25 @@ export const userMiddleware = (req:Request , res:Response,next: NextFunction)=>{
 
     const verifyUser = jwt.verify(token as string,user_jwt);
 
-    if(verifyUser)  {
-        //@ts-ignore
-        req.userId = verifyUser.id
-        next() ;
-    }else {
-        res.status(StatusCode.FORBIDDEN).json({
-            message : "You are logged In"
+   if(verifyUser){
+    if(typeof verifyUser === "string"){
+        res.status(StatusCode.OK).json({
+            message : "You are logged in"
         })
+        return; 
     }
+    //@ts-ignore
+    req.userId = (verifyUser as JwtPayload).id; 
+    next(); 
+} else {
+    res.status(StatusCode.BAD_REQUEST).json({
+        message: "You are not logged in"
+    })
+}
    } catch (error) {
     res.status(StatusCode.BAD_REQUEST).json({
         message : error
     })
    }
-}    
+}   
+

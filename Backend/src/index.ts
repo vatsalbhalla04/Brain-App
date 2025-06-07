@@ -3,15 +3,16 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { userRoute } from "./routes/user";
 import { contentRoute } from "./routes/content";
+import cors from "cors"
 import { userMiddleware } from "./middleware/middleware";
 import { shareRoute } from "./routes/share";
 const app = express();
-
 // Load .env variables
 dotenv.config();
 
 const mongoURI = process.env.MONGO_STRING as string;
 
+app.use(cors());
 app.use(express.json()); 
 app.use('/api/v1/user',userRoute); 
 app.use('/api/v1/content',userMiddleware,contentRoute); 
